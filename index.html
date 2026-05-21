@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Emergency One-Click Alert System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>🚨 Emergency Alert System</h1>
+                <p class="subtitle">Medical Emergency One-Click Alert System</p>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h2>Quick Emergency Response</h2>
+                <p>Get immediate help with a single click. This system alerts emergency services and your contacts instantly.</p>
+            </section>
+
+            <section class="alert-section">
+                <div class="alert-button-container">
+                    <button class="emergency-btn" id="emergencyBtn">
+                        <span class="pulse"></span>
+                        EMERGENCY ALERT
+                    </button>
+                </div>
+                <p class="warning">⚠️ Only use in actual emergencies</p>
+            </section>
+
+            <section class="features">
+                <h3>Key Features</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📍</div>
+                        <h4>Location Tracking</h4>
+                        <p>Automatically shares your location with emergency services</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📢</div>
+                        <h4>Instant Notification</h4>
+                        <p>Alerts emergency contacts and services immediately</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏥</div>
+                        <h4>Medical Info</h4>
+                        <p>Shares your medical history with first responders</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <h4>Fast Response</h4>
+                        <p>Real-time emergency response coordination</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="instructions">
+                <h3>How It Works</h3>
+                <ol>
+                    <li>Click the Emergency Alert button in case of emergency</li>
+                    <li>Your location is automatically detected</li>
+                    <li>Emergency services are notified</li>
+                    <li>Your emergency contacts are alerted</li>
+                    <li>Help arrives at your location</li>
+                </ol>
+            </section>
+
+            <section class="setup-section">
+                <h3>Setup Your Emergency Contacts</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Your Phone:</label>
+                        <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact1">Emergency Contact 1:</label>
+                        <input type="tel" id="contact1" placeholder="Phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact2">Emergency Contact 2:</label>
+                        <input type="tel" id="contact2" placeholder="Phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="medical">Medical Conditions/Allergies:</label>
+                        <textarea id="medical" placeholder="List any medical conditions or allergies" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="save-btn">Save Information</button>
+                </form>
+            </section>
+
+            <section class="info-display">
+                <h3>Your Emergency Profile</h3>
+                <div id="profileInfo" class="profile-info">
+                    <p style="color: #999;">No information saved yet. Complete the form above.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Medical Emergency One-Click Alert System | Developed by Chandrakant Sharma</p>
+            <p class="disclaimer">This is a demonstration system. Always call 911 or your local emergency number in actual emergencies.</p>
+        </footer>
+    </div>
+
+    <!-- Modal for Emergency Confirmation -->
+    <div id="emergencyModal" class="modal">
+        <div class="modal-content">
+            <h2>⚠️ EMERGENCY ALERT ACTIVATED</h2>
+            <p>Emergency services have been notified of your location.</p>
+            <p><strong>Location:</strong> <span id="location-display">Detecting...</span></p>
+            <p><strong>Time:</strong> <span id="time-display"></span></p>
+            <button id="cancelBtn" class="cancel-btn">Cancel Alert</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
