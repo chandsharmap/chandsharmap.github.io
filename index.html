@@ -3,120 +3,367 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Emergency One-Click Alert System</title>
+    <title>Emergency Alert System - Multi-Category</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Google Sign-In Library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="header-content">
-                <h1>🚨 Emergency Alert System</h1>
-                <p class="subtitle">Medical Emergency One-Click Alert System</p>
+        <!-- LOGIN PAGE -->
+        <div id="loginPage" class="page active">
+            <div class="login-container">
+                <div class="login-card">
+                    <div class="login-header">
+                        <div class="login-icon">🆘</div>
+                        <h1>Emergency Alert System</h1>
+                        <p>Quick access to emergency services</p>
+                    </div>
+
+                    <div class="login-content">
+                        <p class="login-description">
+                            Sign in to your account to access the emergency alert system. Your information will be securely stored.
+                        </p>
+
+                        <!-- Google Sign-In Button -->
+                        <div class="google-signin-container">
+                            <button id="googleSignInBtn" class="google-signin-btn" onclick="triggerGoogleSignIn()">
+                                <svg class="google-icon" viewBox="0 0 24 24" width="20" height="20">
+                                    <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 6.882c1.849 0 3.516.589 4.897 1.588l3.639-3.513C18.679 2.249 15.738 0 12 0 7.388 0 3.305 2.789 1.24 6.649l4.026 3.116z"/>
+                                    <path fill="#34A853" d="M16.04 18.013c-1.09.703-2.474 1.078-4.04 1.078-3.802 0-7.029-2.438-8.15-5.72l-4.143 3.206C3.304 21.933 7.26 24 12 24c2.70 0 5.05-.587 7.20-1.566l-3.157-2.421z"/>
+                                    <path fill="#4285F4" d="M19.843 5.148c.642-.564 1.326-1.058 2.025-1.469v-2.47h-2.25m0 0A10.981 10.981 0 0 0 12 2c-4.638 0-8.721 2.789-10.76 6.649l4.143 3.206C5.856 7.482 8.814 5.148 12 5.148c1.848 0 3.516.589 4.897 1.588m4.946-1.588A10.994 10.994 0 0 1 24 12c0 1.61-.254 3.16-.744 4.62l-3.276-2.532c.146-.624.222-1.271.222-1.935 0-3.792-3.194-6.863-7.137-6.863z"/>
+                                    <path fill="#FBBC05" d="M6 18.5c-.395 0-.772-.04-1.14-.118l-4.143 3.206C3.304 21.933 7.26 24 12 24c2.7 0 5.05-.587 7.197-1.566l-3.157-2.421c-1.042.665-2.264 1.066-3.57 1.066-3.802 0-7.029-2.438-8.15-5.72l-4.026 3.115z"/>
+                                </svg>
+                                Sign in with Google
+                            </button>
+                        </div>
+
+                        <!-- OR Divider -->
+                        <div class="divider">
+                            <span>OR</span>
+                        </div>
+
+                        <!-- Email Sign-In Form -->
+                        <form id="emailSignInForm" onsubmit="handleEmailSignIn(event)">
+                            <div class="form-group">
+                                <label for="email">Email Address:</label>
+                                <input type="email" id="email" placeholder="Enter your email" required>
+                            </div>
+                            <button type="submit" class="email-signin-btn">Sign in with Email</button>
+                        </form>
+
+                        <p class="login-footer">
+                            Your data is encrypted and never shared with third parties.
+                        </p>
+                    </div>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <main>
-            <section class="hero">
-                <h2>Quick Emergency Response</h2>
-                <p>Get immediate help with a single click. This system alerts emergency services and your contacts instantly.</p>
-            </section>
+        <!-- MAIN APPLICATION PAGE -->
+        <div id="mainPage" class="page">
+            <header>
+                <div class="header-content">
+                    <div class="header-left">
+                        <h1>🆘 Emergency Alert System</h1>
+                        <p class="subtitle">Choose Your Emergency Type</p>
+                    </div>
+                    <div class="header-right">
+                        <div class="user-profile">
+                            <img id="userAvatar" class="user-avatar" alt="User Avatar">
+                            <span id="userName" class="user-name">User</span>
+                            <button id="logoutBtn" class="logout-btn" onclick="logout()">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
-            <section class="alert-section">
-                <div class="alert-button-container">
-                    <button class="emergency-btn" id="emergencyBtn">
-                        <span class="pulse"></span>
-                        EMERGENCY ALERT
+            <main>
+                <!-- Navigation Tabs -->
+                <div class="nav-tabs">
+                    <button class="nav-tab active" onclick="switchTab('emergency')">
+                        <span>🆘</span> Emergency
+                    </button>
+                    <button class="nav-tab" onclick="switchTab('contacts')">
+                        <span>📱</span> Emergency Contacts
+                    </button>
+                    <button class="nav-tab" onclick="switchTab('profile')">
+                        <span>👤</span> My Profile
                     </button>
                 </div>
-                <p class="warning">⚠️ Only use in actual emergencies</p>
-            </section>
 
-            <section class="features">
-                <h3>Key Features</h3>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">📍</div>
-                        <h4>Location Tracking</h4>
-                        <p>Automatically shares your location with emergency services</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📢</div>
-                        <h4>Instant Notification</h4>
-                        <p>Alerts emergency contacts and services immediately</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🏥</div>
-                        <h4>Medical Info</h4>
-                        <p>Shares your medical history with first responders</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⏱️</div>
-                        <h4>Fast Response</h4>
-                        <p>Real-time emergency response coordination</p>
-                    </div>
+                <!-- EMERGENCY TAB -->
+                <div id="emergencyTab" class="tab-content active">
+                    <section class="home-screen">
+                        <h2>What type of emergency do you need?</h2>
+                        <p class="intro-text">Select the appropriate emergency type below</p>
+                        
+                        <!-- Emergency Categories Grid -->
+                        <div class="emergency-categories">
+                            <!-- Accident Emergency -->
+                            <div class="emergency-card accident-card" onclick="selectEmergency('accident')">
+                                <div class="emergency-icon">🚑</div>
+                                <h3>Accident Emergency</h3>
+                                <p>Medical/Traffic accident</p>
+                                <span class="card-indicator">Medical Crisis</span>
+                            </div>
+
+                            <!-- Help Emergency -->
+                            <div class="emergency-card help-card" onclick="selectEmergency('help')">
+                                <div class="emergency-icon">🆘</div>
+                                <h3>Help Emergency</h3>
+                                <p>Need immediate assistance</p>
+                                <span class="card-indicator">Personal Safety</span>
+                            </div>
+
+                            <!-- Normal Need -->
+                            <div class="emergency-card normal-card" onclick="selectEmergency('normal')">
+                                <div class="emergency-icon">📍</div>
+                                <h3>Normal Need</h3>
+                                <p>Share location only</p>
+                                <span class="card-indicator">Location Sharing</span>
+                            </div>
+                        </div>
+                    </section>
                 </div>
-            </section>
 
-            <section class="instructions">
-                <h3>How It Works</h3>
-                <ol>
-                    <li>Click the Emergency Alert button in case of emergency</li>
-                    <li>Your location is automatically detected</li>
-                    <li>Emergency services are notified</li>
-                    <li>Your emergency contacts are alerted</li>
-                    <li>Help arrives at your location</li>
-                </ol>
-            </section>
+                <!-- CONTACTS TAB -->
+                <div id="contactsTab" class="tab-content">
+                    <section class="contacts-section">
+                        <h2>Emergency Contacts</h2>
+                        <p class="section-description">Add and manage your emergency contacts. These contacts will be notified during emergencies.</p>
+                        
+                        <div class="contacts-container">
+                            <div class="contacts-list" id="contactsList">
+                                <!-- Contacts will be displayed here -->
+                            </div>
 
-            <section class="setup-section">
-                <h3>Setup Your Emergency Contacts</h3>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Your Name:</label>
-                        <input type="text" id="name" placeholder="Enter your name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Your Phone:</label>
-                        <input type="tel" id="phone" placeholder="Enter your phone number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact1">Emergency Contact 1:</label>
-                        <input type="tel" id="contact1" placeholder="Phone number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact2">Emergency Contact 2:</label>
-                        <input type="tel" id="contact2" placeholder="Phone number">
-                    </div>
-                    <div class="form-group">
-                        <label for="medical">Medical Conditions/Allergies:</label>
-                        <textarea id="medical" placeholder="List any medical conditions or allergies" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="save-btn">Save Information</button>
-                </form>
-            </section>
-
-            <section class="info-display">
-                <h3>Your Emergency Profile</h3>
-                <div id="profileInfo" class="profile-info">
-                    <p style="color: #999;">No information saved yet. Complete the form above.</p>
+                            <button class="add-contact-btn" onclick="openAddContactForm()">
+                                <span>+</span> Add New Contact
+                            </button>
+                        </div>
+                    </section>
                 </div>
-            </section>
-        </main>
 
-        <footer>
-            <p>&copy; 2026 Medical Emergency One-Click Alert System | Developed by Chandrakant Sharma</p>
-            <p class="disclaimer">This is a demonstration system. Always call 911 or your local emergency number in actual emergencies.</p>
-        </footer>
+                <!-- PROFILE TAB -->
+                <div id="profileTab" class="tab-content">
+                    <section class="profile-section">
+                        <h2>My Profile</h2>
+                        <p class="section-description">Update your personal information and medical details.</p>
+                        
+                        <form id="profileForm" onsubmit="saveProfile(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profileName">Full Name:</label>
+                                    <input type="text" id="profileName" placeholder="Enter your full name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profilePhone">Phone Number:</label>
+                                    <input type="tel" id="profilePhone" placeholder="Enter your phone number" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profileEmail">Email:</label>
+                                    <input type="email" id="profileEmail" placeholder="Enter your email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileAge">Age:</label>
+                                    <input type="number" id="profileAge" placeholder="Enter your age" min="1" max="150">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileMedical">Medical Conditions/Allergies:</label>
+                                <textarea id="profileMedical" placeholder="List any medical conditions or allergies" rows="5"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileAddress">Emergency Address:</label>
+                                <textarea id="profileAddress" placeholder="Enter your address for emergency responders" rows="3"></textarea>
+                            </div>
+
+                            <button type="submit" class="save-profile-btn">Save Profile</button>
+                        </form>
+
+                        <div class="profile-display" id="profileDisplay">
+                            <!-- Profile will be displayed here -->
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 Emergency Alert System | Developed by Chandrakant Sharma</p>
+                <p class="disclaimer">⚠️ This is a supplementary tool. Always call 911 or your local emergency number in actual emergencies.</p>
+            </footer>
+        </div>
     </div>
 
-    <!-- Modal for Emergency Confirmation -->
-    <div id="emergencyModal" class="modal">
-        <div class="modal-content">
-            <h2>⚠️ EMERGENCY ALERT ACTIVATED</h2>
-            <p>Emergency services have been notified of your location.</p>
-            <p><strong>Location:</strong> <span id="location-display">Detecting...</span></p>
-            <p><strong>Time:</strong> <span id="time-display"></span></p>
-            <button id="cancelBtn" class="cancel-btn">Cancel Alert</button>
+    <!-- ADD CONTACT MODAL -->
+    <div id="addContactModal" class="modal">
+        <div class="modal-content contact-modal">
+            <button class="modal-close" onclick="closeModal('addContactModal')">✕</button>
+            <div class="modal-header">
+                <div class="modal-icon">📱</div>
+                <h2>Add Emergency Contact</h2>
+            </div>
+
+            <form id="addContactForm" onsubmit="saveContact(event)">
+                <div class="form-group">
+                    <label for="contactName">Contact Name:</label>
+                    <input type="text" id="contactName" placeholder="e.g., Mom, Dad, Doctor" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactPhone">Phone Number:</label>
+                    <input type="tel" id="contactPhone" placeholder="e.g., +917296865763 or 7296865763" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactRelation">Relation:</label>
+                    <select id="contactRelation">
+                        <option value="Family">Family</option>
+                        <option value="Friend">Friend</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Emergency Services">Emergency Services</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactPriority">Priority:</label>
+                    <select id="contactPriority">
+                        <option value="High">High - Notify First</option>
+                        <option value="Medium">Medium - Notify Second</option>
+                        <option value="Low">Low - Notify Last</option>
+                    </select>
+                </div>
+
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="contactNotifyWhatsapp" checked>
+                    <label for="contactNotifyWhatsapp">Notify via WhatsApp</label>
+                </div>
+
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="contactNotifySMS" checked>
+                    <label for="contactNotifySMS">Notify via SMS</label>
+                </div>
+
+                <button type="submit" class="save-contact-btn">Save Contact</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ACCIDENT EMERGENCY MODAL -->
+    <div id="accidentModal" class="modal">
+        <div class="modal-content accident-modal">
+            <button class="modal-close" onclick="closeModal('accidentModal')">✕</button>
+            <div class="modal-header">
+                <div class="modal-icon">🚑</div>
+                <h2>Accident Emergency</h2>
+            </div>
+            <p>Your GPS location will be detected and sent to emergency services and your contacts.</p>
+            
+            <div class="action-buttons">
+                <button class="action-btn hospital-btn" onclick="callHospital()">
+                    <span>🏥</span>
+                    Call Nearest Hospital
+                </button>
+                <button class="action-btn ambulance-btn" onclick="callAmbulance()">
+                    <span>🚑</span>
+                    Call Ambulance Service
+                </button>
+            </div>
+
+            <hr class="divider">
+            <h4>Send Alert to Contact:</h4>
+            
+            <div id="accidentContactList" class="contact-list">
+                <!-- Contacts will be populated here -->
+            </div>
+
+            <div class="location-info" id="accidentLocationInfo">
+                <p id="accidentLocation">📍 Location: Detecting...</p>
+            </div>
+
+            <button class="cancel-btn" onclick="closeModal('accidentModal')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- HELP EMERGENCY MODAL -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content help-modal">
+            <button class="modal-close" onclick="closeModal('helpModal')">✕</button>
+            <div class="modal-header">
+                <div class="modal-icon">🆘</div>
+                <h2>Help Emergency</h2>
+            </div>
+            <p>Your location will be sent to the selected contact and a call will be initiated.</p>
+            
+            <h4>Select Contact to Call:</h4>
+            
+            <div id="helpContactList" class="contact-list">
+                <!-- Contacts will be populated here -->
+            </div>
+
+            <div class="location-info" id="helpLocationInfo">
+                <p id="helpLocation">📍 Location: Detecting...</p>
+            </div>
+
+            <button class="cancel-btn" onclick="closeModal('helpModal')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- NORMAL NEED MODAL -->
+    <div id="normalModal" class="modal">
+        <div class="modal-content normal-modal">
+            <button class="modal-close" onclick="closeModal('normalModal')">✕</button>
+            <div class="modal-header">
+                <div class="modal-icon">📍</div>
+                <h2>Share Location</h2>
+            </div>
+            <p>Your live location will be shared with the selected contact.</p>
+            
+            <h4>Select Contact:</h4>
+            
+            <div id="normalContactList" class="contact-list">
+                <!-- Contacts will be populated here -->
+            </div>
+
+            <div class="location-info" id="normalLocationInfo">
+                <p id="normalLocation">📍 Location: Detecting...</p>
+                <p id="mapsLink" style="margin-top: 10px;"></p>
+            </div>
+
+            <div class="share-options">
+                <button class="share-btn whatsapp-btn" onclick="shareVia('whatsapp')">
+                    <span>💚</span>
+                    Share via WhatsApp
+                </button>
+                <button class="share-btn sms-btn" onclick="shareVia('sms')">
+                    <span>💬</span>
+                    Share via SMS
+                </button>
+                <button class="share-btn call-btn" onclick="shareVia('call')">
+                    <span>☎️</span>
+                    Call Contact
+                </button>
+            </div>
+
+            <button class="cancel-btn" onclick="closeModal('normalModal')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">✅</div>
+            <h2 id="successTitle">Alert Sent!</h2>
+            <p id="successMessage">Your emergency alert has been sent successfully.</p>
+            <p id="successDetails"></p>
+            <button class="confirm-btn" onclick="closeModal('successModal')">OK</button>
         </div>
     </div>
 
