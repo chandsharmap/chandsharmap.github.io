@@ -238,7 +238,7 @@ MIT License - Feel free to use and modify
 
 ## 👨‍💻 Developer
 
-**Chandrakant Sharma**  
+**Chandra Prakash Sharma**  
 GitHub: [@chandsharmap](https://github.com/chandsharmap)
 
 ---
